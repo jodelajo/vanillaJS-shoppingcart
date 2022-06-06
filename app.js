@@ -1,10 +1,11 @@
 // SELECT ELEMENTS
-const productsElement = document.querySelector(".products");
+const productsElements = document.querySelector(".products");
+const cartItems = document.querySelector(".cart-items");
 
 // RENDER PRODUCTS
 const renderProducts = () => {
   products.forEach((product) => {
-    productsElement.innerHTML += `
+    productsElements.innerHTML += `
       <div class="item">
         <div class="item-container">
             <div class="item-img">
@@ -33,7 +34,7 @@ renderProducts();
 // cart array
 let cart = [];
 
-//ADD TOT CART
+// ADD TOT CART
 const addToCart = (id) => {
   // check if product already exist in cart
   if (cart.some((item) => item.id === id)) {
@@ -44,6 +45,37 @@ const addToCart = (id) => {
       ...item,
       numberOfUnits: 1,
     });
-    updateCart();
   }
+  updateCart();
 };
+
+// update cart
+const updateCart = () => {
+  renderCartItems();
+  // renderSubTotal()
+};
+
+// render cart items
+const renderCartItems = () => {
+  cartItems.innerHTML = ""; // clear cart
+  cart.forEach((item) => {
+    cartItems.innerHTML += `
+        <div class="cart-item">
+            <div class="item-info">
+              <img src="${item.imgSrc}" alt="${item.name}" />
+              <h4>${item.name}</h4>
+            </div>
+            <div class="unit-price"><small>$</small>${item.price}</div>
+            <div class="units">
+              <div class="btn minus" onclick="changeNumberOfUnits('minus', ${item.id})">-</div>
+              <div class="number">${item.numberOfUnits}</div>
+              <div class="btn plus" onclick="changeNumberOfUnits('plus', ${item.id})>+</div>
+            </div>
+          </div>
+        </div>
+        `;
+  });
+};
+
+//
+const changeNumberOfUnits = (action, id) => {};

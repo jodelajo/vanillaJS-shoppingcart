@@ -1,6 +1,8 @@
 // SELECT ELEMENTS
 const productsElements = document.querySelector(".products");
 const cartItems = document.querySelector(".cart-items");
+const cartSubTotal = document.querySelector(".subtotal");
+const totalItemsInCart = document.querySelector(".total-items-in-cart");
 
 // RENDER PRODUCTS
 const renderProducts = () => {
@@ -52,7 +54,21 @@ const addToCart = (id) => {
 // update cart
 const updateCart = () => {
   renderCartItems();
-  // renderSubTotal()
+  renderSubTotal();
+};
+
+// calculate and render subtotal
+const renderSubTotal = () => {
+  let totalPrice = 0,
+    totalItems = 0;
+  cart.forEach((item) => {
+    totalPrice += item.price * item.numberOfUnits;
+    totalItems += item.numberOfUnits;
+  });
+  cartSubTotal.innerHTML = `
+    Subtotal (${totalItems} items): $ ${totalPrice.toFixed(2)}
+    `;
+  totalItemsInCart.innerHTML = totalItems;
 };
 
 // render cart items

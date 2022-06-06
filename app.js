@@ -2,7 +2,7 @@
 const productsElement = document.querySelector(".products");
 
 // RENDER PRODUCTS
-renderProducts = () => {
+const renderProducts = () => {
   products.forEach((product) => {
     productsElement.innerHTML += `
       <div class="item">
@@ -30,7 +30,20 @@ renderProducts = () => {
 };
 renderProducts();
 
+// cart array
+let cart = [];
+
 //ADD TOT CART
-addToCart = (id) => {
-  console.log(id);
+const addToCart = (id) => {
+  // check if product already exist in cart
+  if (cart.some((item) => item.id === id)) {
+    alert("product already in cart");
+  } else {
+    const item = products.find((product) => product.id === id);
+    cart.push({
+      ...item,
+      numberOfUnits: 1,
+    });
+    updateCart();
+  }
 };
